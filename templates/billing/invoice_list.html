@@ -1,0 +1,19 @@
+{% extends 'base.html' %}{% load billing_extras %}
+{% block title %}Daftar Invoice{% endblock %}
+{% block content %}
+<div class="mb-5 flex items-center justify-between gap-3"><div><p class="text-sm text-slate-500">Transaksi</p><h1 class="text-2xl font-semibold tracking-tight">Invoice</h1></div><a class="btn-primary" href="{% url 'invoice_create' %}">Buat</a></div>
+<div class="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
+  {% for invoice in invoices %}
+  <div class="border-b border-slate-100 p-4 last:border-b-0">
+    <div class="flex items-start justify-between gap-4">
+      <a href="{% url 'invoice_detail' invoice.pk %}" class="min-w-0 flex-1 transition hover:text-slate-600"><p class="font-semibold">{{ invoice.number }}</p><p class="mt-1 text-sm text-slate-600">{{ invoice.customer.name }} - {{ invoice.company.code }}</p></a>
+      <div class="text-right"><p class="font-semibold">{{ invoice.total|rupiah }}</p><p class="mt-1 text-xs text-slate-500">{{ invoice.issued_at|date:'d M Y' }}</p></div>
+    </div>
+    <div class="mt-3 flex gap-2 text-sm">
+      <a class="rounded-md border border-slate-200 px-3 py-1.5 font-semibold text-slate-700" href="{% url 'invoice_update' invoice.pk %}">Edit</a>
+      <a class="rounded-md border border-red-200 px-3 py-1.5 font-semibold text-red-600" href="{% url 'invoice_delete' invoice.pk %}">Hapus</a>
+    </div>
+  </div>
+  {% empty %}<div class="p-6 text-sm text-slate-500">Belum ada invoice.</div>{% endfor %}
+</div>
+{% endblock %}

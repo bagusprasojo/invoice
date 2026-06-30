@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}{{ invoice.number }}{% endblock %}
+{% block content %}
+<div class="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+  <div><a class="text-sm font-medium text-slate-600" href="{% url 'invoice_list' %}">Kembali</a><h1 class="mt-1 text-2xl font-semibold tracking-tight">{{ invoice.number }}</h1></div>
+  <div class="grid grid-cols-2 gap-2 sm:flex">
+    <a class="btn-secondary" href="{% url 'invoice_update' invoice.pk %}">Edit</a>
+    <a class="inline-flex items-center justify-center rounded-lg border border-red-200 bg-white px-4 py-2.5 text-sm font-bold text-red-600" href="{% url 'invoice_delete' invoice.pk %}">Hapus</a>
+    <a class="btn-secondary" href="{% url 'invoice_print' invoice.pk %}" target="_blank">Cetak</a>
+    <a class="btn-primary" href="{% url 'invoice_pdf' invoice.pk %}" target="_blank">PDF</a>
+  </div>
+</div>
+{% include 'billing/_invoice_document.html' %}
+{% endblock %}

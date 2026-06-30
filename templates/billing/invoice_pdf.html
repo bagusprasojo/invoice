@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <title>{{ invoice.number }}</title>
+  <link rel="stylesheet" href="/static/css/app.css">
+</head>
+<body class="pdf-body">
+  <main class="pdf-main">
+    {% include 'billing/_invoice_document.html' %}
+  </main>
+</body>
+</html>

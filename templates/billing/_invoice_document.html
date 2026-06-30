@@ -1,0 +1,33 @@
+{% load billing_extras %}
+<div class="invoice-sheet">
+  <div class="invoice-topbar"></div>
+  <header class="invoice-header">
+    <div>
+      <p class="invoice-kicker">Invoice</p>
+      <h1>{{ invoice.number }}</h1>
+      <p class="invoice-date">{{ invoice.issued_at|date:'d F Y' }}</p>
+    </div>
+    <div class="invoice-company">
+      <h2>{{ invoice.company.name }}</h2>
+      <p>{{ invoice.company.address }}</p>
+      <p>{{ invoice.company.phone }}</p>
+    </div>
+  </header>
+  <section class="invoice-parties">
+    <div>
+      <p class="label">Ditagihkan kepada</p>
+      <h3>{{ invoice.customer.name }}</h3>
+      <p>{{ invoice.customer.address }}</p>
+      <p>{{ invoice.customer.phone }}</p>
+    </div>
+  </section>
+  <table class="invoice-table">
+    <thead><tr><th>Produk</th><th class="num">Harga</th><th class="num">Diskon</th><th class="num">Qty</th><th class="num">Subtotal</th></tr></thead>
+    <tbody>{% for item in invoice.items.all %}<tr><td>{{ item.product_name }}</td><td class="num">{{ item.price|rupiah }}</td><td class="num">{{ item.discount|rupiah }}</td><td class="num">{{ item.quantity }}</td><td class="num strong">{{ item.subtotal|rupiah }}</td></tr>{% endfor %}</tbody>
+  </table>
+  <section class="invoice-summary">
+    <div class="invoice-notes">{% if invoice.notes %}<p class="label">Catatan</p><p>{{ invoice.notes }}</p>{% endif %}</div>
+    <div class="totals"><div><span>Subtotal</span><strong>{{ invoice.subtotal|rupiah }}</strong></div><div><span>Cash Diskon</span><strong>{{ invoice.cash_discount|rupiah }}</strong></div><div class="grand"><span>Total</span><strong>{{ invoice.total|rupiah }}</strong></div></div>
+  </section>
+  <footer class="invoice-footer"><p>Terima kasih atas kepercayaan Anda.</p></footer>
+</div>
