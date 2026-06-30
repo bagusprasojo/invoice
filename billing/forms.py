@@ -10,12 +10,15 @@ TEXTAREA_CLASS = INPUT_CLASS + ' min-h-24'
 class CompanyForm(forms.ModelForm):
     class Meta:
         model = Company
-        fields = ['code', 'name', 'address', 'phone']
+        fields = ['code', 'name', 'address', 'phone', 'bank_name', 'bank_account_number', 'bank_account_name']
         widgets = {
             'code': forms.TextInput(attrs={'class': INPUT_CLASS, 'placeholder': 'BP'}),
             'name': forms.TextInput(attrs={'class': INPUT_CLASS, 'placeholder': 'Nama perusahaan'}),
             'address': forms.Textarea(attrs={'class': TEXTAREA_CLASS, 'placeholder': 'Alamat lengkap'}),
             'phone': forms.TextInput(attrs={'class': INPUT_CLASS, 'placeholder': 'Nomor telepon'}),
+            'bank_name': forms.TextInput(attrs={'class': INPUT_CLASS, 'placeholder': 'BCA'}),
+            'bank_account_number': forms.TextInput(attrs={'class': INPUT_CLASS, 'placeholder': 'Nomor rekening'}),
+            'bank_account_name': forms.TextInput(attrs={'class': INPUT_CLASS, 'placeholder': 'Nama pemilik rekening'}),
         }
 
 
@@ -28,4 +31,7 @@ class CustomerForm(forms.ModelForm):
             'name': forms.TextInput(attrs={'class': INPUT_CLASS, 'placeholder': 'Nama customer'}),
             'address': forms.Textarea(attrs={'class': TEXTAREA_CLASS, 'placeholder': 'Alamat lengkap'}),
             'phone': forms.TextInput(attrs={'class': INPUT_CLASS, 'placeholder': 'Nomor telepon'}),
+            'bank_name': forms.TextInput(attrs={'class': INPUT_CLASS, 'placeholder': 'BCA'}),
+            'bank_account_number': forms.TextInput(attrs={'class': INPUT_CLASS, 'placeholder': 'Nomor rekening'}),
+            'bank_account_name': forms.TextInput(attrs={'class': INPUT_CLASS, 'placeholder': 'Nama pemilik rekening'}),
         }

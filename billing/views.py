@@ -99,7 +99,10 @@ def company_list(request):
             Q(code__icontains=query) |
             Q(name__icontains=query) |
             Q(address__icontains=query) |
-            Q(phone__icontains=query)
+            Q(phone__icontains=query) |
+            Q(bank_name__icontains=query) |
+            Q(bank_account_number__icontains=query) |
+            Q(bank_account_name__icontains=query)
         )
     page_obj = Paginator(companies, 10).get_page(request.GET.get('page'))
     return render(request, 'billing/company_list.html', {'page_obj': page_obj, 'query': query})

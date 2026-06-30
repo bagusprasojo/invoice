@@ -5,8 +5,8 @@ from .models import Company, Customer, Invoice, InvoiceItem
 
 @admin.register(Company)
 class CompanyAdmin(admin.ModelAdmin):
-    list_display = ('code', 'name', 'phone')
-    search_fields = ('code', 'name', 'phone')
+    list_display = ('code', 'name', 'phone', 'bank_name')
+    search_fields = ('code', 'name', 'phone', 'bank_name', 'bank_account_number', 'bank_account_name')
 
 
 @admin.register(Customer)

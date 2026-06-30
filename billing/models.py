@@ -9,6 +9,9 @@ class Company(models.Model):
     name = models.CharField(max_length=160)
     address = models.TextField()
     phone = models.CharField(max_length=40)
+    bank_name = models.CharField(max_length=80, blank=True)
+    bank_account_number = models.CharField(max_length=80, blank=True)
+    bank_account_name = models.CharField(max_length=160, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:

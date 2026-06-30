@@ -26,7 +26,17 @@
     <tbody>{% for item in invoice.items.all %}<tr><td>{{ item.product_name }}</td><td class="num">{{ item.price|rupiah }}</td><td class="num">{{ item.discount|rupiah }}</td><td class="num">{{ item.quantity }}</td><td class="num strong">{{ item.subtotal|rupiah }}</td></tr>{% endfor %}</tbody>
   </table>
   <section class="invoice-summary">
-    <div class="invoice-notes">{% if invoice.notes %}<p class="label">Catatan</p><p>{{ invoice.notes }}</p>{% endif %}</div>
+    <div class="invoice-meta">
+      {% if invoice.notes %}<div class="invoice-notes"><p class="label">Catatan</p><p>{{ invoice.notes }}</p></div>{% endif %}
+      {% if invoice.company.bank_name or invoice.company.bank_account_number or invoice.company.bank_account_name %}
+      <div class="invoice-payment">
+        <p class="label">Pembayaran</p>
+        {% if invoice.company.bank_name %}<p>{{ invoice.company.bank_name }}</p>{% endif %}
+        {% if invoice.company.bank_account_number %}<p>{{ invoice.company.bank_account_number }}</p>{% endif %}
+        {% if invoice.company.bank_account_name %}<p>a.n. {{ invoice.company.bank_account_name }}</p>{% endif %}
+      </div>
+      {% endif %}
+    </div>
     <div class="totals"><div><span>Subtotal</span><strong>{{ invoice.subtotal|rupiah }}</strong></div><div><span>Cash Diskon</span><strong>{{ invoice.cash_discount|rupiah }}</strong></div><div class="grand"><span>Total</span><strong>{{ invoice.total|rupiah }}</strong></div></div>
   </section>
   <footer class="invoice-footer"><p>Terima kasih atas kepercayaan Anda.</p></footer>
