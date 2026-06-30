@@ -1,6 +1,7 @@
 import json
 from decimal import Decimal, InvalidOperation
 
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
@@ -11,7 +12,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils import timezone
-from weasyprint import HTML
+from weasyprint import CSS, HTML
 
 from .forms import CompanyForm, CustomerForm
 from .models import Company, Customer, Invoice, InvoiceItem
@@ -330,7 +331,8 @@ def invoice_print(request, pk):
 def invoice_pdf(request, pk):
     invoice = get_object_or_404(Invoice.objects.select_related('company', 'customer').prefetch_related('items'), pk=pk)
     html = render_to_string('billing/invoice_pdf.html', {'invoice': invoice}, request=request)
-    pdf = HTML(string=html, base_url=request.build_absolute_uri('/')).write_pdf()
+    stylesheet = CSS(filename=str(settings.BASE_DIR / 'static' / 'css' / 'app.css'))
+    pdf = HTML(string=html, base_url=request.build_absolute_uri('/')).write_pdf(stylesheets=[stylesheet])
     response = HttpResponse(pdf, content_type='application/pdf')
     response['Content-Disposition'] = f'inline; filename="{invoice.number}.pdf"'
     return response
